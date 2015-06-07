@@ -15,7 +15,7 @@ const DB_HOST = "localhost"; // mysql hostname
 const DB_NAME = ""; // mysql database name
 const DB_USER = ""; // mysql username
 const DB_PASS = ""; // mysql password
-const DB_PREF = "";  // mysql prefix
+const DB_PREF = ""; // mysql prefix
 
 set_time_limit(0); // maximum php execution time, 0 for unlimited
 
