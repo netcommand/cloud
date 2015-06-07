@@ -1,17 +1,19 @@
 <?php
 
-class MyDB extends SQLite3 {
-  function __construct() {
-    try {
-      $this ->open('db/data.sqlite',SQLITE3_OPEN_READWRITE);
-    }
-    catch(Exception $e) {
-      if($this->lastErrorCode() == 14) {
-        try {
-          $this ->open('db/data.sqlite',SQLITE3_OPEN_READWRITE | SQLITE3_OPEN_CREATE);
-          $result = $this->exec("CREATE TABLE users (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, cuser CHAR(20) NOT NULL, cpass CHAR(102) NOT NULL, locked INTEGER NOT NULL, uuid CHAR(32) NOT NULL, groups TEXT NOT NULL); CREATE UNIQUE INDEX 'cuser' on users (cuser COLLATE NOCASE ASC); CREATE TABLE files (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, uuid CHAR(32) NOT NULL, file CHAR(255) NOT NULL)");
+if(DB == 'sqlite') {
+  class MyDB extends SQLite3 {
+    function __construct() {
+      try {
+        $this ->open('db/data.sqlite',SQLITE3_OPEN_READWRITE);
+      }
+      catch(Exception $e) {
+        if($this->lastErrorCode() == 14) {
+          try {
+            $this ->open('db/data.sqlite',SQLITE3_OPEN_READWRITE | SQLITE3_OPEN_CREATE);
+            $result = $this->exec("CREATE TABLE users (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, cuser CHAR(20) NOT NULL, cpass CHAR(102) NOT NULL, locked INTEGER NOT NULL, uuid CHAR(32) NOT NULL, groups TEXT NOT NULL); CREATE UNIQUE INDEX 'cuser' on users (cuser COLLATE NOCASE ASC); CREATE TABLE files (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, uuid CHAR(32) NOT NULL, file CHAR(255) NOT NULL)");
+          }
+          catch(Exception $e) {}
         }
-        catch(Exception $e) {}
       }
     }
   }
