@@ -1,0 +1,5 @@
+php_value upload_max_filesize 1G
+php_value post_max_size 1G
+RewriteEngine On
+RewriteBase /
+RewriteRule ^(download-)(.*)$ index.php?d=$2 [L]
