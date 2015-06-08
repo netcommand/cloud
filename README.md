@@ -71,7 +71,7 @@ Check the file permissions on folder **"db"**
 ### apache & nginx configuration
 
 ### php installation for apache2 & nginx (sqlite)
-```
+```bash
 apt-get install php5-sqlite
 ```
 
@@ -85,7 +85,7 @@ It's better than copy the file, and You don't need the double diskspace.
 **/etc/php5/apache2/php.ini**
 
 **/etc/php5/fpm/php.ini**
-```
+```ini
 upload_tmp_dir = "/var/www/tmp"
 upload_max_filesize = 1G
 post_max_size = 1G
@@ -99,7 +99,7 @@ SSL is recommended, own key is better than nothing!
 [https://www.digitalocean.com/community/tutorials/how-to-create-a-ssl-certificate-on-apache-for-ubuntu-12-04]
 
 **short notes**
-```
+```bash
 cd /etc/ssl
 openssl genrsa -des3 -out server.key 2048
 openssl rsa -in server.key -out server.key.unsecure
@@ -112,7 +112,7 @@ openssl x509 -req -days 365 -in server.csr -signkey server.key -out server.crt
 look for port 443
 
 **/etc/apache2/sites-enabled/your.conf**
-```
+```apache
   NameVirtualHost 127.0.0.1:443
 
   <VirtualHost *:443>
@@ -141,14 +141,14 @@ a2enmod ssl
 ```
 
 **nginx**
-```
+```bash
 apt-get install nginx php5-fpm
 ```
 
 **/etc/nginx/sites-available/default**
 
-example: If Your cloud is on **https: // YourDomain.com / cloud /**
-```
+example: If Your cloud is on **https: //YourDomain.com/cloud/**
+```nginx
 server {
   listen 443;
   server_name YourDomain.com;
