@@ -7,7 +7,7 @@
 ### system requirement
 
 * Only one user should have root access.
-* PHP 5.3.2 > & MySQL 5.1 or SQLite apache modul
+* PHP 5.3.2 > & MySQL 5.1 or SQLite modul
 * ssl is recommended
 * Desktop Computer (Chrome, Firefox, Safari)
 * Mobile Phone ios, android (only Firefox)
@@ -113,27 +113,27 @@ look for port 443
 
 **/etc/apache2/sites-enabled/your.conf**
 ```apache
-  NameVirtualHost 127.0.0.1:443
+NameVirtualHost 127.0.0.1:443
 
-  <VirtualHost *:443>
-    DocumentRoot /var/www/
-    SSLEngine on
-    SSLCertificateKeyFile /etc/ssl/server.key.unsecure
-    SSLCertificateFile /etc/ssl/server.crt
-    <Directory />
-      Options FollowSymLinks
-      AllowOverride None
-    </Directory>
-    <Directory /var/www/>
-      Options Indexes FollowSymLinks MultiViews
-      AllowOverride All
-      Order allow,deny
-      allow from all
-    </Directory>
-    ErrorLog /var/log/apache2/error.log
-    CustomLog /var/log/apache2/access.log combined
-    LogLevel warn
-  </VirtualHost>
+<VirtualHost *:443>
+  DocumentRoot /var/www/
+  SSLEngine on
+  SSLCertificateKeyFile /etc/ssl/server.key.unsecure
+  SSLCertificateFile /etc/ssl/server.crt
+  <Directory />
+    Options FollowSymLinks
+    AllowOverride None
+  </Directory>
+  <Directory /var/www/>
+    Options Indexes FollowSymLinks MultiViews
+    AllowOverride All
+    Order allow,deny
+    allow from all
+  </Directory>
+  ErrorLog /var/log/apache2/error.log
+  CustomLog /var/log/apache2/access.log combined
+  LogLevel warn
+</VirtualHost>
 ```
 ```
 a2enmod ssl
