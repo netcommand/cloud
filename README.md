@@ -24,6 +24,7 @@
 
 ### features
 
+* apache2 or nginx
 * sqlite or mysql
 * disk quota
 * responsive design
@@ -76,25 +77,27 @@ php_value post_max_size 1G
 RewriteBase /
 ```
 
-### php installation (sqlite)
+### php installation for apache2 & nginx (sqlite)
 ```
 apt-get install php5-sqlite
-service apache2 restart
 ```
 
-### php configuration (tmp)
+### php configuration (tmp & sizes)
 
 changes recommended in **"php.ini"**
 The best here is a directory on the same partition.
 Because if the file is uploaded, it's moving.
-It's better than copy the file, and You don't need the double space.
+It's better than copy the file, and You don't need the double diskspace.
 
 **/etc/php5/apache2/php.ini**
+**/etc/php5/fpm/php.ini**
 ```
 upload_tmp_dir = "/var/www/tmp"
+upload_max_filesize = 1G
+post_max_size = 1G
 ```
 
-### SSL configuration (https)
+### SSL configuration for apache2 or nginx (https)
 
 SSL is recommended, own key is better than nothing!
 
@@ -103,8 +106,7 @@ SSL is recommended, own key is better than nothing!
 
 **short notes**
 ```
-mkdir /etc/apache2/ssl
-cd /etc/apache2/ssl
+cd /etc/ssl
 openssl genrsa -des3 -out server.key 2048
 openssl rsa -in server.key -out server.key.unsecure
 openssl req -new -key server.key -out server.csr
@@ -121,8 +123,8 @@ look for port 443
   <VirtualHost *:443>
     DocumentRoot /var/www/
     SSLEngine on
-    SSLCertificateKeyFile /etc/apache2/ssl/server.key.unsecure
-    SSLCertificateFile /etc/apache2/ssl/server.crt
+    SSLCertificateKeyFile /etc/ssl/server.key.unsecure
+    SSLCertificateFile /etc/ssl/server.crt
     <Directory />
       Options FollowSymLinks
       AllowOverride None
@@ -142,6 +144,57 @@ look for port 443
 a2enmod ssl
 /etc/init.d/apache2 restart
 ```
+
+**nginx**
+```
+apt-get install nginx php5-fpm
+```
+
+**/etc/nginx/sites-available/default**
+example: If Your cloud is on **"https://YourDomain.com/cloud/"**
+```
+server {
+  listen 443;
+  server_name YourDomain.com;
+
+  root html;
+  index index.html index.htm index.php;
+
+  ssl on;
+  ssl_certificate /etc/ssl/server.crt;
+  ssl_certificate_key /etc/ssl/server.key.unsecure;
+
+  ssl_session_timeout 5m;
+
+  ssl_protocols SSLv3 TLSv1 TLSv1.1 TLSv1.2;
+  ssl_ciphers "HIGH:!aNULL:!MD5 or HIGH:!aNULL:!MD5:!3DES";
+  ssl_prefer_server_ciphers on;
+
+  location ~ \.php$ {
+    fastcgi_split_path_info ^(.+\.php)(/.+)$;
+    fastcgi_pass unix:/var/run/php5-fpm.sock;
+    fastcgi_index index.php;
+    include fastcgi_params;
+  }
+
+  location ~ /\. {
+    deny all;
+    access_log off;
+    log_not_found off;
+  }
+
+  location /cloud/ {
+    rewrite ^/cloud/download-(.*)$ /cloud/index.php?d=$1 last;
+  }
+
+  location /cloud/db/ {
+    deny all;
+  }
+
+  location /cloud/files/ {
+    deny all;
+  }
+}
+```
 for chrome download "server.crt" and import this in "Authorities", open a new tab.
-The Certificate should contain the correct domain (CN)
-In our example 127.0.0.1, then the "lock" is light up green
+The Certificate should contain the correct domain (CN) then the "lock" is light up green
