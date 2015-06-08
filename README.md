@@ -36,8 +36,8 @@
 ### installation
 
 copy all files and change the **"cfg.inc.php"**
-The folder **"files"** needs write and read protection,
-only apache should have access (webservice)
+The folder **"files"** & ***"db"*** needs write and read protection,
+only apache/nginx should have access (www-data)
 
 *The first user ID:1 is automatically the administrator.*
 
@@ -68,14 +68,7 @@ CREATE TABLE IF NOT EXISTS `users` (
 If you use SQLite the database file is automatically created as **"db/data.sqlite"**
 Check the file permissions on folder **"db"**
 
-### apache configuration
-
-**.htaccess**
-```
-php_value upload_max_filesize 1G
-php_value post_max_size 1G
-RewriteBase /
-```
+### apache & nginx configuration
 
 ### php installation for apache2 & nginx (sqlite)
 ```
@@ -114,6 +107,7 @@ openssl x509 -req -days 365 -in server.csr -signkey server.key -out server.crt
 ```
 
 **/etc/apache2/ports.conf**
+
 look for port 443
 
 **/etc/apache2/sites-enabled/your.conf**
@@ -151,6 +145,7 @@ apt-get install nginx php5-fpm
 ```
 
 **/etc/nginx/sites-available/default**
+
 example: If Your cloud is on **"https://YourDomain.com/cloud/"**
 ```
 server {
