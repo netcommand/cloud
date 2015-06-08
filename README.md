@@ -83,6 +83,7 @@ Because if the file is uploaded, it's moving.
 It's better than copy the file, and You don't need the double diskspace.
 
 **/etc/php5/apache2/php.ini**
+
 **/etc/php5/fpm/php.ini**
 ```
 upload_tmp_dir = "/var/www/tmp"
@@ -146,7 +147,7 @@ apt-get install nginx php5-fpm
 
 **/etc/nginx/sites-available/default**
 
-example: If Your cloud is on **"https://YourDomain.com/cloud/"**
+example: If Your cloud is on **https: // YourDomain.com / cloud /**
 ```
 server {
   listen 443;
