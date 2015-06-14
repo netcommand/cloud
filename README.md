@@ -120,6 +120,7 @@ NameVirtualHost 127.0.0.1:443
   SSLEngine on
   SSLCertificateKeyFile /etc/ssl/server.key.unsecure
   SSLCertificateFile /etc/ssl/server.crt
+  SSLProtocol ALL -SSLv2 -SSLv3
   <Directory />
     Options FollowSymLinks
     AllowOverride None
@@ -162,7 +163,7 @@ server {
 
   ssl_session_timeout 5m;
 
-  ssl_protocols SSLv3 TLSv1 TLSv1.1 TLSv1.2;
+  ssl_protocols TLSv1 TLSv1.1 TLSv1.2;
   ssl_ciphers "HIGH:!aNULL:!MD5 or HIGH:!aNULL:!MD5:!3DES";
   ssl_prefer_server_ciphers on;
 
