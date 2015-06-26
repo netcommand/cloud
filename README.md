@@ -198,6 +198,6 @@ The Certificate should contain the correct domain (CN) then the "lock" is light 
 
 ### I like bitcoins :)
 
-[bitcoin:1L8CmfS6PhGbonRaNbrvoY7TMKvrKfEbcQ](1L8CmfS6PhGbonRaNbrvoY7TMKvrKfEbcQ)
+1L8CmfS6PhGbonRaNbrvoY7TMKvrKfEbcQ
 
 <img src="http://netcommand.de/bitcoins4cloud.png" border=0 />
