@@ -141,7 +141,7 @@ a2enmod ssl
 /etc/init.d/apache2 restart
 ```
 
-**nginx**
+### **nginx**
 ```bash
 apt-get install nginx php5-fpm
 ```
@@ -195,3 +195,9 @@ server {
 ```
 for chrome download "server.crt" and import this in "Authorities", open a new tab.
 The Certificate should contain the correct domain (CN) then the "lock" is light up green
+
+### I like bitcoins :)
+
+[bitcoin:1L8CmfS6PhGbonRaNbrvoY7TMKvrKfEbcQ](1L8CmfS6PhGbonRaNbrvoY7TMKvrKfEbcQ)
+
+<img src="http://netcommand.de/bitcoins4cloud.png" border=0 />
