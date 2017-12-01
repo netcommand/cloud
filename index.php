@@ -192,6 +192,8 @@ switch ($cmd) {
       header('Content-Type: '.finfo_file($finfo,$file));
       header('Last-Modified: '.gmdate('D, d M Y H:i:s').' GMT');
       header('Content-Disposition: attachment; filename="'.basename(CLOUD::fileWithoutOptions($file)).'"');
+      ob_clean();
+      flush();
       @readfile($file);
       exit();
     }
